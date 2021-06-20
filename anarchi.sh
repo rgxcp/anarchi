@@ -137,7 +137,7 @@ main_installation () {
     echo ""
 
     echo "Step 2.8 - Entering Arch"
-    read -p "Enter Arch manually with ${GREEN}COMMAND: arch-chroot /mnt${WHITE}. Press enter to continue."
+    read -p "Enter Arch manually with COMMAND: arch-chroot /mnt. Press enter to continue."
 }
 
 post_installation () {
@@ -214,7 +214,7 @@ post_installation () {
     echo ""
 
     echo "Step 3.10 - Exiting Arch"
-    read -p "Exit Arch manually with ${GREEN}COMMAND: exit${WHITE}. Press enter to continue."
+    read -p "Exit Arch manually with COMMAND: exit. Press enter to continue."
 }
 
 finish_installation () {
@@ -234,7 +234,7 @@ finish_installation () {
     echo ""
 
     echo "Step 4.2 - Rebooting System"
-    read -p "Reboot system manually with ${GREEN}COMMAND: reboot${WHITE}, configure boot priority, and boot into Arch. Press enter to continue."
+    read -p "Reboot system manually with COMMAND: reboot, configure boot priority, and boot into Arch. Press enter to continue."
 }
 
 unknown_choice () {
