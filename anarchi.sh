@@ -1,5 +1,8 @@
 #!/bin/bash
 
+GREEN="\e[32m"
+WHITE="\e[0m"
+
 pre_installation () {
     echo "╔══════════════════╗"
     echo "║ █▀▀█ ▒█▀▀█ ▒█▀▀▀ ║"
@@ -11,42 +14,42 @@ pre_installation () {
     echo "Step 1.1 - Downloading ISO & Signature File"
     read -p "ISO file HTTP direct link: " ISO_FILE_LINK
     read -p "ISO file name: " ISO_FILE_NAME
-    echo "COMMAND: cd $HOME/Downloads"
+    echo -e "${GREEN}COMMAND: cd $HOME/Downloads${WHITE}"
     cd $HOME/Downloads
-    echo "COMMAND: curl -O $ISO_FILE_LINK"
+    echo -e "${GREEN}COMMAND: curl -O $ISO_FILE_LINK${WHITE}"
     curl -O $ISO_FILE_LINK
-    echo "COMMAND: curl -O $ISO_FILE_LINK.sig"
+    echo -e "${GREEN}COMMAND: curl -O $ISO_FILE_LINK.sig${WHITE}"
     curl -O $ISO_FILE_LINK.sig
     read -p "Press enter to continue."
     echo ""
 
     echo "Step 1.2 - Verifying ISO File with GPG"
-    echo "COMMAND: gpg --keyserver-options auto-key-retrieve --verify $ISO_FILE_NAME.sig"
+    echo -e "${GREEN}COMMAND: gpg --keyserver-options auto-key-retrieve --verify $ISO_FILE_NAME.sig${WHITE}"
     gpg --keyserver-options auto-key-retrieve --verify $ISO_FILE_NAME.sig
     read -p "Please make sure the signature is good. Press enter to continue."
     echo ""
 
     echo "Step 1.3 - Verifying ISO File with Pacman"
-    echo "COMMAND: pacman-key -v $ISO_FILE_NAME.sig"
+    echo -e "${GREEN}COMMAND: pacman-key -v $ISO_FILE_NAME.sig${WHITE}"
     pacman-key -v $ISO_FILE_NAME.sig
     read -p "Please make sure the signature is good. Press enter to continue."
     echo ""
 
     echo "Step 1.4 - Making Bootable Flash Drive"
     read -p "Please insert the flash drive. Press enter to continue."
-    echo "COMMAND: su -"
+    echo -e "${GREEN}COMMAND: su -${WHITE}"
     su -
-    echo "COMMAND: lsblk"
+    echo -e "${GREEN}COMMAND: lsblk${WHITE}"
     lsblk
     read -p "Flash drive block: " FLASH_DRIVE_BLOCK
-    echo "COMMAND: mkfs.vfat -I $FLASH_DRIVE_BLOCK"
+    echo -e "${GREEN}COMMAND: mkfs.vfat -I $FLASH_DRIVE_BLOCK${WHITE}"
     mkfs.vfat -I $FLASH_DRIVE_BLOCK
-    echo "COMMAND: lsblk"
+    echo -e "${GREEN}COMMAND: lsblk${WHITE}"
     lsblk
     read -p "Please make sure the flash drive is properly formatted. Press enter to continue."
-    echo "COMMAND: dd if=$HOME/Downloads/$ISO_FILE_NAME of=$FLASH_DRIVE_BLOCK bs=4M status=progress && sync"
+    echo -e "${GREEN}COMMAND: dd if=$HOME/Downloads/$ISO_FILE_NAME of=$FLASH_DRIVE_BLOCK bs=4M status=progress && sync${WHITE}"
     dd if=$HOME/Downloads/$ISO_FILE_NAME of=$FLASH_DRIVE_BLOCK bs=4M status=progress && sync
-    echo "COMMAND: lsblk"
+    echo -e "${GREEN}COMMAND: lsblk${WHITE}"
     lsblk
     read -p "Please make sure the flash drive is properly installed. Press enter to continue."
     echo ""
@@ -64,15 +67,15 @@ main_installation () {
     echo "╚═════════════════════════╝"
 
     echo "Step 2.1 - Verifying Boot Mode"
-    echo "COMMAND: ls /sys/firmware/efi/efivars"
+    echo -e "${GREEN}COMMAND: ls /sys/firmware/efi/efivars${WHITE}"
     ls /sys/firmware/efi/efivars
     read -p "Please make sure the EFI files is exists. Press enter to continue."
     echo ""
 
     echo "Step 2.2 - Updating System Clock"
-    echo "COMMAND: timedatectl set-ntp true"
+    echo -e "${GREEN}COMMAND: timedatectl set-ntp true${WHITE}"
     timedatectl set-ntp true
-    echo "COMMAND: timedatectl status"
+    echo -e "${GREEN}COMMAND: timedatectl status${WHITE}"
     timedatectl status
     read -p "Please make sure the system clock is correct. Press enter to continue."
     echo ""
@@ -91,50 +94,50 @@ main_installation () {
     echo "11.[p]rint the partition table again."
     echo "12.[w]rite table to disk and exit."
     read -p "Press enter to continue."
-    echo "COMMAND: lsblk"
+    echo -e "${GREEN}COMMAND: lsblk${WHITE}"
     lsblk
     read -p "Drive block: " DRIVE_BLOCK
-    echo "COMMAND: fdisk $DRIVE_BLOCK"
+    echo -e "${GREEN}COMMAND: fdisk $DRIVE_BLOCK${WHITE}"
     fdisk $DRIVE_BLOCK
 
     echo "Step 2.4 - Formatting Partitions"
-    echo "COMMAND: mkfs.fat -F32 ${DRIVE_BLOCK}1"
+    echo -e "${GREEN}COMMAND: mkfs.fat -F32 ${DRIVE_BLOCK}1${WHITE}"
     mkfs.fat -F32 ${DRIVE_BLOCK}1
-    echo "COMMAND: mkswap ${DRIVE_BLOCK}2"
+    echo -e "${GREEN}COMMAND: mkswap ${DRIVE_BLOCK}2${WHITE}"
     mkswap ${DRIVE_BLOCK}2
-    echo "COMMAND: mkfs.ext4 ${DRIVE_BLOCK}3"
+    echo -e "${GREEN}COMMAND: mkfs.ext4 ${DRIVE_BLOCK}3${WHITE}"
     mkfs.ext4 ${DRIVE_BLOCK}3
     read -p "Press enter to continue."
     echo ""
 
     echo "Step 2.5 - Mounting Partitions"
-    echo "COMMAND: mount ${DRIVE_BLOCK}3 /mnt"
+    echo -e "${GREEN}COMMAND: mount ${DRIVE_BLOCK}3 /mnt${WHITE}"
     mount ${DRIVE_BLOCK}3 /mnt
-    echo "COMMAND: swapon ${DRIVE_BLOCK}2"
+    echo -e "${GREEN}COMMAND: swapon ${DRIVE_BLOCK}2${WHITE}"
     swapon ${DRIVE_BLOCK}2
-    echo "COMMAND: mkdir /mnt/boot"
+    echo -e "${GREEN}COMMAND: mkdir /mnt/boot${WHITE}"
     mkdir /mnt/boot
-    echo "COMMAND: mount ${DRIVE_BLOCK}1 /mnt/boot"
+    echo -e "${GREEN}COMMAND: mount ${DRIVE_BLOCK}1 /mnt/boot${WHITE}"
     mount ${DRIVE_BLOCK}1 /mnt/boot
-    echo "COMMAND: lsblk"
+    echo -e "${GREEN}COMMAND: lsblk${WHITE}"
     lsblk
     read -p "Please make sure the partitions is properly mounted. Press enter to continue."
     echo ""
 
     echo "Step 2.6 - Installing Essential Packages"
-    echo "COMMAND: pacstrap /mnt base linux linux-firmware"
+    echo -e "${GREEN}COMMAND: pacstrap /mnt base linux linux-firmware${WHITE}"
     pacstrap /mnt base linux linux-firmware
     read -p "Press enter to continue."
     echo ""
 
     echo "Step 2.7 - Generating Fstab"
-    echo "COMMAND: genfstab -U /mnt >> /mnt/etc/fstab"
+    echo -e "${GREEN}COMMAND: genfstab -U /mnt >> /mnt/etc/fstab${WHITE}"
     genfstab -U /mnt >> /mnt/etc/fstab
     read -p "Press enter to continue."
     echo ""
 
     echo "Step 2.8 - Entering Arch"
-    read -p "Enter Arch manually with COMMAND: arch-chroot /mnt. Press enter to continue."
+    read -p "Enter Arch manually with ${GREEN}COMMAND: arch-chroot /mnt${WHITE}. Press enter to continue."
 }
 
 post_installation () {
@@ -146,72 +149,72 @@ post_installation () {
     echo "╚═══════════════════════════╝"
 
     echo "Step 3.1 - Configuring Time Zone"
-    echo "COMMAND: ln -sf /usr/share/zoneinfo/Asia/Jakarta /etc/localtime"
+    echo -e "${GREEN}COMMAND: ln -sf /usr/share/zoneinfo/Asia/Jakarta /etc/localtime${WHITE}"
     ln -sf /usr/share/zoneinfo/Asia/Jakarta /etc/localtime
-    echo "COMMAND: hwclock --systohc"
+    echo -e "${GREEN}COMMAND: hwclock --systohc${WHITE}"
     hwclock --systohc
     read -p "Press enter to continue."
     echo ""
 
     echo "Step 3.2 - Configuring Localization"
-    echo "COMMAND: sed -i "\""s/#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/"\"" /etc/locale.gen"
+    echo -e "${GREEN}COMMAND: sed -i "\""s/#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/"\"" /etc/locale.gen${WHITE}"
     sed -i "s/#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/" /etc/locale.gen
-    echo "COMMAND: locale-gen"
+    echo -e "${GREEN}COMMAND: locale-gen${WHITE}"
     locale-gen
-    echo "COMMAND: echo "\""LANG=en_US.UTF-8"\"" > /etc/locale.conf"
+    echo -e "${GREEN}COMMAND: echo "\""LANG=en_US.UTF-8"\"" > /etc/locale.conf${WHITE}"
     echo "LANG=en_US.UTF-8" > /etc/locale.conf
     read -p "Press enter to continue."
     echo ""
 
     echo "Step 3.3 - Configuring Host Name & Network"
     read -p "Host name: " HOST_NAME
-    echo "COMMAND: echo "\""$HOST_NAME"\"" > /etc/hostname"
+    echo -e "${GREEN}COMMAND: echo "\""$HOST_NAME"\"" > /etc/hostname${WHITE}"
     echo "$HOST_NAME" > /etc/hostname
-    echo "COMMAND: echo -e "\""\n127.0.0.1\tlocalhost\n::1\t\t\tlocalhost\n127.0.1.1\t$HOST_NAME.localdomain\t$HOST_NAME"\"" >> /etc/hosts"
+    echo -e "${GREEN}COMMAND: echo -e "\""\n127.0.0.1\tlocalhost\n::1\t\t\tlocalhost\n127.0.1.1\t$HOST_NAME.localdomain\t$HOST_NAME"\"" >> /etc/hosts${WHITE}"
     echo -e "\n127.0.0.1\tlocalhost\n::1\t\t\tlocalhost\n127.0.1.1\t$HOST_NAME.localdomain\t$HOST_NAME" >> /etc/hosts
     read -p "Press enter to continue."
     echo ""
 
     echo "Step 3.4 - Creating Initramfs"
-    echo "COMMAND: mkinitcpio -P"
+    echo -e "${GREEN}COMMAND: mkinitcpio -P${WHITE}"
     mkinitcpio -P
     read -p "Press enter to continue."
     echo ""
 
     echo "Step 3.5 - Configuring Root Password"
-    echo "COMMAND: passwd"
+    echo -e "${GREEN}COMMAND: passwd${WHITE}"
     passwd
     read -p "Press enter to continue."
     echo ""
 
     echo "Step 3.6 - Installing Essential Packages"
-    echo "COMMAND: pacman -S efibootmgr grub networkmanager"
+    echo -e "${GREEN}COMMAND: pacman -S efibootmgr grub networkmanager${WHITE}"
     pacman -S efibootmgr grub networkmanager
     read -p "Press enter to continue."
     echo ""
 
     echo "Step 3.7 - Installing & Configuring GRUB"
-    echo "COMMAND: grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB"
+    echo -e "${GREEN}COMMAND: grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB${WHITE}"
     grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
-    echo "COMMAND: grub-mkconfig -o /boot/grub/grub.cfg"
+    echo -e "${GREEN}COMMAND: grub-mkconfig -o /boot/grub/grub.cfg${WHITE}"
     grub-mkconfig -o /boot/grub/grub.cfg
     read -p "Press enter to continue."
     echo ""
 
     echo "Step 3.8 - Enabling NetworkManager"
-    echo "COMMAND: systemctl enable NetworkManager"
+    echo -e "${GREEN}COMMAND: systemctl enable NetworkManager${WHITE}"
     systemctl enable NetworkManager
     read -p "Press enter to continue."
     echo ""
 
     echo "Step 3.9 - Disabling PC Speaker"
-    echo "COMMAND: echo "\""blacklist pcspkr"\"" > /etc/modprobe.d/nobeep.conf"
+    echo -e "${GREEN}COMMAND: echo "\""blacklist pcspkr"\"" > /etc/modprobe.d/nobeep.conf${WHITE}"
     echo "blacklist pcspkr" > /etc/modprobe.d/nobeep.conf
     read -p "Press enter to continue."
     echo ""
 
     echo "Step 3.10 - Exiting Arch"
-    read -p "Exit Arch manually with COMMAND: exit. Press enter to continue."
+    read -p "Exit Arch manually with ${GREEN}COMMAND: exit${WHITE}. Press enter to continue."
 }
 
 finish_installation () {
@@ -223,15 +226,15 @@ finish_installation () {
     echo "╚═══════════════════════════════════╝"
 
     echo "Step 4.1 - Unmounting Partitions"
-    echo "COMMAND: umount -R /mnt"
+    echo -e "${GREEN}COMMAND: umount -R /mnt${WHITE}"
     umount -R /mnt
-    echo "COMMAND: lsblk"
+    echo -e "${GREEN}COMMAND: lsblk${WHITE}"
     lsblk
     read -p "Please make sure the partitions is properly unmounted. Press enter to continue."
     echo ""
 
     echo "Step 4.2 - Rebooting System"
-    read -p "Reboot system manually with COMMAND: reboot, configure boot priority, and boot into Arch. Press enter to continue."
+    read -p "Reboot system manually with ${GREEN}COMMAND: reboot${WHITE}, configure boot priority, and boot into Arch. Press enter to continue."
 }
 
 unknown_choice () {
