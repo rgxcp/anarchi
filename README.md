@@ -18,7 +18,7 @@ MAINTAINING
    ```bash
    git clone https://github.com/rgxcp/anarchi.git
    ```
-2. Change the directory into project.
+2. Change your directory into project.
    ```bash
    cd anarchi
    ```
