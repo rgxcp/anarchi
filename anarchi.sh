@@ -136,7 +136,13 @@ main_installation () {
     read -p "Press enter to continue."
     echo ""
 
-    echo "Step 2.8 - Entering Arch"
+    echo "Step 2.8 - Copying anarchi.sh into Arch"
+    echo -e "${GREEN}COMMAND: cp anarchi.sh /mnt${WHITE}"
+    cp anarchi.sh /mnt
+    read -p "Press enter to continue."
+    echo ""
+
+    echo "Step 2.9 - Entering Arch"
     read -p "Enter Arch manually with COMMAND: arch-chroot /mnt. Press enter to continue."
 }
 
@@ -170,8 +176,8 @@ post_installation () {
     read -p "Host name: " HOST_NAME
     echo -e "${GREEN}COMMAND: echo "\""$HOST_NAME"\"" > /etc/hostname${WHITE}"
     echo "$HOST_NAME" > /etc/hostname
-    echo -e "${GREEN}COMMAND: echo -e "\""\n127.0.0.1\tlocalhost\n::1\t\t\tlocalhost\n127.0.1.1\t$HOST_NAME.localdomain\t$HOST_NAME"\"" >> /etc/hosts${WHITE}"
-    echo -e "\n127.0.0.1\tlocalhost\n::1\t\t\tlocalhost\n127.0.1.1\t$HOST_NAME.localdomain\t$HOST_NAME" >> /etc/hosts
+    echo -e "${GREEN}COMMAND: echo -e "\""\n127.0.0.1\tlocalhost\n::1\t\tlocalhost\n127.0.1.1\t$HOST_NAME.localdomain\t$HOST_NAME"\"" >> /etc/hosts${WHITE}"
+    echo -e "\n127.0.0.1\tlocalhost\n::1\t\tlocalhost\n127.0.1.1\t$HOST_NAME.localdomain\t$HOST_NAME" >> /etc/hosts
     read -p "Press enter to continue."
     echo ""
 
@@ -188,32 +194,110 @@ post_installation () {
     echo ""
 
     echo "Step 3.6 - Installing Essential Packages"
-    echo -e "${GREEN}COMMAND: pacman -S efibootmgr grub networkmanager${WHITE}"
-    pacman -S efibootmgr grub networkmanager
+    echo -e "${GREEN}COMMAND: pacman -S alacritty alsa-utils arc-gtk-theme base-devel blueberry chntpw dolphin dosfstools efibootmgr firefox git grub htop lightdm lightdm-gtk-greeter lxappearance nano neofetch networkmanager nitrogen ntfs-3g nvidia os-prober pcmanfm picom python-pywal qbittorrent qtile rofi vlc xf86-video-intel xorg xorg-xinit youtube-dl${WHITE}"
+    pacman -S alacritty alsa-utils arc-gtk-theme base-devel blueberry chntpw dolphin dosfstools efibootmgr firefox git grub htop lightdm lightdm-gtk-greeter lxappearance nano neofetch networkmanager nitrogen ntfs-3g nvidia os-prober pcmanfm picom python-pywal qbittorrent qtile rofi vlc xf86-video-intel xorg xorg-xinit youtube-dl
     read -p "Press enter to continue."
     echo ""
 
     echo "Step 3.7 - Installing & Configuring GRUB"
     echo -e "${GREEN}COMMAND: grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB${WHITE}"
     grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
+    echo -e "${GREEN}COMMAND: sed -i "\""s/GRUB_TIMEOUT=5/GRUB_TIMEOUT=3/"\"" /etc/default/grub${WHITE}"
+    sed -i "s/GRUB_TIMEOUT=5/GRUB_TIMEOUT=3/" /etc/default/grub
     echo -e "${GREEN}COMMAND: grub-mkconfig -o /boot/grub/grub.cfg${WHITE}"
     grub-mkconfig -o /boot/grub/grub.cfg
     read -p "Press enter to continue."
     echo ""
 
-    echo "Step 3.8 - Enabling NetworkManager"
+    echo "Step 3.8 - Enabling Modules"
+    echo -e "${GREEN}COMMAND: systemctl enable lightdm${WHITE}"
+    systemctl enable lightdm
     echo -e "${GREEN}COMMAND: systemctl enable NetworkManager${WHITE}"
     systemctl enable NetworkManager
     read -p "Press enter to continue."
     echo ""
 
-    echo "Step 3.9 - Disabling PC Speaker"
+    echo "Step 3.9 - Adding User"
+    USERS=()
+    CHOICE="y"
+    while [ $CHOICE == "y" ]
+    do
+        read -p "User name: " USER_NAME
+        USERS+=($USER_NAME)
+        echo -e "${GREEN}COMMAND: useradd -m -g $USER_NAME${WHITE}"
+        useradd -m -g $USER_NAME
+        echo -e "${GREEN}COMMAND: passwd $USER_NAME${WHITE}"
+        passwd $USER_NAME
+        echo ""
+        read -p "Add another user? [y/n]: " CHOICE
+    done
+    read -p "Press enter to continue."
+    echo ""
+
+    echo "Step 3.10 - Disabling PC Speaker"
     echo -e "${GREEN}COMMAND: echo "\""blacklist pcspkr"\"" > /etc/modprobe.d/nobeep.conf${WHITE}"
     echo "blacklist pcspkr" > /etc/modprobe.d/nobeep.conf
     read -p "Press enter to continue."
     echo ""
 
-    echo "Step 3.10 - Exiting Arch"
+    echo "Step 3.11 - Configuring Git"
+    read -p "User name: " USER_NAME
+    echo -e "${GREEN}COMMAND: git config --global user.name "\""$USER_NAME"\""${WHITE}"
+    git config --global user.name "$USER_NAME"
+    read -p "User email: " USER_EMAIL
+    echo -e "${GREEN}COMMAND: git config --global user.email $USER_EMAIL${WHITE}"
+    git config --global user.email $USER_EMAIL
+    read -p "Press enter to continue."
+    echo ""
+
+    echo "Step 3.12 - Configuring LightDM"
+    echo -e "${GREEN}COMMAND: sed -i "\""s/#greeter-session=example-gtk-gnome/greeter-session=lightdm-gtk-greeter/"\"" /etc/lightdm/lightdm.conf${WHITE}"
+    sed -i "s/#greeter-session=example-gtk-gnome/greeter-session=lightdm-gtk-greeter/" /etc/lightdm/lightdm.conf
+    read -p "Press enter to continue."
+    echo ""
+
+    echo "Step 3.13 - Configuring Qtile"
+    for USER in ${USERS[@]}
+    do
+        echo -e "${GREEN}COMMAND: mkdir -p /home/$USER/.config/qtile${WHITE}"
+        mkdir -p /home/$USER/.config/qtile
+        echo -e "${GREEN}COMMAND: cp /usr/share/doc/qtile/default_config.py /home/$USER/.config/qtile/config.py${WHITE}"
+        cp /usr/share/doc/qtile/default_config.py /home/$USER/.config/qtile/config.py
+        echo -e "${GREEN}COMMAND: chown -R $USER:wheel /home/$USER/.config${WHITE}"
+        chown -R $USER:wheel /home/$USER/.config
+    done
+    read -p "Press enter to continue."
+    echo ""
+
+    echo "Step 3.14 - Configuring Sudoers"
+    echo -e "${GREEN}COMMAND: sed -i "\""s/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/"\"" /etc/sudoers${WHITE}"
+    sed -i "s/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/" /etc/sudoers
+    read -p "Press enter to continue."
+    echo ""
+
+    echo "Step 3.15 - Installing Yay"
+    echo -e "${GREEN}COMMAND: git clone https://aur.archlinux.org/yay.git${WHITE}"
+    git clone https://aur.archlinux.org/yay.git
+    echo -e "${GREEN}COMMAND: cd yay${WHITE}"
+    cd yay
+    echo -e "${GREEN}COMMAND: makepkg -si${WHITE}"
+    makepkg -si
+    echo -e "${GREEN}COMMAND: cd ..${WHITE}"
+    cd ..
+    echo -e "${GREEN}COMMAND: rm -rf yay${WHITE}"
+    rm -rf yay
+    echo -e "${GREEN}COMMAND: yay -S betterlockscreen polybar spotify visual-studio-code-bin${WHITE}"
+    yay -S betterlockscreen polybar spotify visual-studio-code-bin
+    read -p "Press enter to continue."
+    echo ""
+
+    echo "Step 3.16 - Configuring Dual Boot Time"
+    echo -e "${GREEN}COMMAND: timedatectl set-local-rtc 1 --adjust-system-clock${WHITE}"
+    timedatectl set-local-rtc 1 --adjust-system-clock
+    read -p "Press enter to continue."
+    echo ""
+
+    echo "Step 3.17 - Exiting Arch"
     read -p "Exit Arch manually with COMMAND: exit. Press enter to continue."
 }
 
@@ -225,7 +309,13 @@ finish_installation () {
     echo "║           Installation            ║"
     echo "╚═══════════════════════════════════╝"
 
-    echo "Step 4.1 - Unmounting Partitions"
+    echo "Step 4.1 - Removing anarchi.sh from Arch"
+    echo -e "${GREEN}COMMAND: rm /mnt/anarchi.sh${WHITE}"
+    rm /mnt/anarchi.sh
+    read -p "Press enter to continue."
+    echo ""
+
+    echo "Step 4.2 - Unmounting Partitions"
     echo -e "${GREEN}COMMAND: umount -R /mnt${WHITE}"
     umount -R /mnt
     echo -e "${GREEN}COMMAND: lsblk${WHITE}"
@@ -233,8 +323,9 @@ finish_installation () {
     read -p "Please make sure the partitions is properly unmounted. Press enter to continue."
     echo ""
 
-    echo "Step 4.2 - Rebooting System"
+    echo "Step 4.3 - Rebooting System"
     read -p "Reboot system manually with COMMAND: reboot, configure boot priority, and boot into Arch. Press enter to continue."
+    rm anarchi.sh
 }
 
 unknown_choice () {

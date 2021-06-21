@@ -4,6 +4,8 @@
 
 **ID**: Sebuah Installer Arch.
 
+Note: This installer was heavily tailored for me. Your needs may differs, so, suit your suit before using.
+
 ## Status
 
 MAINTAINING
