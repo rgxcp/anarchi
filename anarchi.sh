@@ -37,18 +37,16 @@ pre_installation () {
 
     echo "Step 1.4 - Making Bootable Flash Drive"
     read -p "Please insert the flash drive. Press enter to continue."
-    echo -e "${GREEN}COMMAND: su -${WHITE}"
-    su -
     echo -e "${GREEN}COMMAND: lsblk${WHITE}"
     lsblk
     read -p "Flash drive block: " FLASH_DRIVE_BLOCK
-    echo -e "${GREEN}COMMAND: mkfs.vfat -I $FLASH_DRIVE_BLOCK${WHITE}"
-    mkfs.vfat -I $FLASH_DRIVE_BLOCK
+    echo -e "${GREEN}COMMAND: sudo mkfs.vfat -I $FLASH_DRIVE_BLOCK${WHITE}"
+    sudo mkfs.vfat -I $FLASH_DRIVE_BLOCK
     echo -e "${GREEN}COMMAND: lsblk${WHITE}"
     lsblk
     read -p "Please make sure the flash drive is properly formatted. Press enter to continue."
-    echo -e "${GREEN}COMMAND: dd if=$HOME/Downloads/$ISO_FILE_NAME of=$FLASH_DRIVE_BLOCK bs=4M status=progress && sync${WHITE}"
-    dd if=$HOME/Downloads/$ISO_FILE_NAME of=$FLASH_DRIVE_BLOCK bs=4M status=progress && sync
+    echo -e "${GREEN}COMMAND: sudo dd if=$HOME/Downloads/$ISO_FILE_NAME of=$FLASH_DRIVE_BLOCK bs=4M status=progress && sync${WHITE}"
+    sudo dd if=$HOME/Downloads/$ISO_FILE_NAME of=$FLASH_DRIVE_BLOCK bs=4M status=progress && sync
     echo -e "${GREEN}COMMAND: lsblk${WHITE}"
     lsblk
     read -p "Please make sure the flash drive is properly installed. Press enter to continue."
