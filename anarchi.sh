@@ -222,8 +222,8 @@ post_installation () {
     do
         read -p "User name: " USER_NAME
         USERS+=($USER_NAME)
-        echo -e "${GREEN}COMMAND: useradd -m -g $USER_NAME${WHITE}"
-        useradd -m -g $USER_NAME
+        echo -e "${GREEN}COMMAND: useradd -m -g wheel $USER_NAME${WHITE}"
+        useradd -m -g wheel $USER_NAME
         echo -e "${GREEN}COMMAND: passwd $USER_NAME${WHITE}"
         passwd $USER_NAME
         echo ""
@@ -273,29 +273,13 @@ post_installation () {
     read -p "Press enter to continue."
     echo ""
 
-    echo "Step 3.15 - Installing Yay"
-    echo -e "${GREEN}COMMAND: git clone https://aur.archlinux.org/yay.git${WHITE}"
-    git clone https://aur.archlinux.org/yay.git
-    echo -e "${GREEN}COMMAND: cd yay${WHITE}"
-    cd yay
-    echo -e "${GREEN}COMMAND: makepkg -si${WHITE}"
-    makepkg -si
-    echo -e "${GREEN}COMMAND: cd ..${WHITE}"
-    cd ..
-    echo -e "${GREEN}COMMAND: rm -rf yay${WHITE}"
-    rm -rf yay
-    echo -e "${GREEN}COMMAND: yay -S betterlockscreen polybar spotify visual-studio-code-bin${WHITE}"
-    yay -S betterlockscreen polybar spotify visual-studio-code-bin
-    read -p "Press enter to continue."
-    echo ""
-
-    echo "Step 3.16 - Configuring Dual Boot Time"
+    echo "Step 3.15 - Configuring Dual Boot Time"
     echo -e "${GREEN}COMMAND: timedatectl set-local-rtc 1 --adjust-system-clock${WHITE}"
     timedatectl set-local-rtc 1 --adjust-system-clock
     read -p "Press enter to continue."
     echo ""
 
-    echo "Step 3.17 - Exiting Arch"
+    echo "Step 3.16 - Exiting Arch"
     read -p "Exit Arch manually with COMMAND: exit. Press enter to continue."
 }
 
