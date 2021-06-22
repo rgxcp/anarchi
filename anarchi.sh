@@ -238,23 +238,13 @@ post_installation () {
     read -p "Press enter to continue."
     echo ""
 
-    echo "Step 3.11 - Configuring Git"
-    read -p "User name: " USER_NAME
-    echo -e "${GREEN}COMMAND: git config --global user.name "\""$USER_NAME"\""${WHITE}"
-    git config --global user.name "$USER_NAME"
-    read -p "User email: " USER_EMAIL
-    echo -e "${GREEN}COMMAND: git config --global user.email $USER_EMAIL${WHITE}"
-    git config --global user.email $USER_EMAIL
-    read -p "Press enter to continue."
-    echo ""
-
-    echo "Step 3.12 - Configuring LightDM"
+    echo "Step 3.11 - Configuring LightDM"
     echo -e "${GREEN}COMMAND: sed -i "\""s/#greeter-session=example-gtk-gnome/greeter-session=lightdm-gtk-greeter/"\"" /etc/lightdm/lightdm.conf${WHITE}"
     sed -i "s/#greeter-session=example-gtk-gnome/greeter-session=lightdm-gtk-greeter/" /etc/lightdm/lightdm.conf
     read -p "Press enter to continue."
     echo ""
 
-    echo "Step 3.13 - Configuring Qtile"
+    echo "Step 3.12 - Configuring Qtile"
     for USER in ${USERS[@]}
     do
         echo -e "${GREEN}COMMAND: mkdir -p /home/$USER/.config/qtile${WHITE}"
@@ -267,19 +257,19 @@ post_installation () {
     read -p "Press enter to continue."
     echo ""
 
-    echo "Step 3.14 - Configuring Sudoers"
+    echo "Step 3.13 - Configuring Sudoers"
     echo -e "${GREEN}COMMAND: sed -i "\""s/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/"\"" /etc/sudoers${WHITE}"
     sed -i "s/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/" /etc/sudoers
     read -p "Press enter to continue."
     echo ""
 
-    echo "Step 3.15 - Configuring Dual Boot Time"
+    echo "Step 3.14 - Configuring Dual Boot Time"
     echo -e "${GREEN}COMMAND: timedatectl set-local-rtc 1 --adjust-system-clock${WHITE}"
     timedatectl set-local-rtc 1 --adjust-system-clock
     read -p "Press enter to continue."
     echo ""
 
-    echo "Step 3.16 - Exiting Arch"
+    echo "Step 3.15 - Exiting Arch"
     read -p "Exit Arch manually with COMMAND: exit. Press enter to continue."
 }
 
@@ -319,7 +309,7 @@ main () {
     echo "║ ░█▀▀█ ▒█▄░▒█ ░█▀▀█ ▒█▀▀█ ▒█▀▀█ ▒█░▒█ ▀█▀ ║"
     echo "║ ▒█▄▄█ ▒█▒█▒█ ▒█▄▄█ ▒█▄▄▀ ▒█░░░ ▒█▀▀█ ▒█░ ║"
     echo "║ ▒█░▒█ ▒█░░▀█ ▒█░▒█ ▒█░▒█ ▒█▄▄█ ▒█░▒█ ▄█▄ ║"
-    echo "║         An Arch Installer v1.0.1         ║"
+    echo "║         An Arch Installer v1.0.2         ║"
     echo "╚══════════════════════════════════════════╝"
 
     echo "1. Pre Installation"
