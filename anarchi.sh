@@ -208,6 +208,8 @@ post_installation () {
     echo ""
 
     echo "Step 3.8 - Enabling Modules"
+    echo -e "${GREEN}COMMAND: systemctl enable bluetooth${WHITE}"
+    systemctl enable bluetooth
     echo -e "${GREEN}COMMAND: systemctl enable lightdm${WHITE}"
     systemctl enable lightdm
     echo -e "${GREEN}COMMAND: systemctl enable NetworkManager${WHITE}"
@@ -309,7 +311,7 @@ main () {
     echo "║ ░█▀▀█ ▒█▄░▒█ ░█▀▀█ ▒█▀▀█ ▒█▀▀█ ▒█░▒█ ▀█▀ ║"
     echo "║ ▒█▄▄█ ▒█▒█▒█ ▒█▄▄█ ▒█▄▄▀ ▒█░░░ ▒█▀▀█ ▒█░ ║"
     echo "║ ▒█░▒█ ▒█░░▀█ ▒█░▒█ ▒█░▒█ ▒█▄▄█ ▒█░▒█ ▄█▄ ║"
-    echo "║         An Arch Installer v1.0.3         ║"
+    echo "║         An Arch Installer v1.0.4         ║"
     echo "╚══════════════════════════════════════════╝"
 
     echo "1. Pre Installation"
