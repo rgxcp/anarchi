@@ -26,13 +26,13 @@ pre_installation () {
     echo "Step 1.2 - Verifying ISO File with GPG"
     echo -e "${GREEN}COMMAND: gpg --keyserver-options auto-key-retrieve --verify $ISO_FILE_NAME.sig${WHITE}"
     gpg --keyserver-options auto-key-retrieve --verify $ISO_FILE_NAME.sig
-    read -p "Please make sure the signature is good. Press enter to continue."
+    read -p "Please make sure the signature was good. Press enter to continue."
     echo ""
 
     echo "Step 1.3 - Verifying ISO File with Pacman"
     echo -e "${GREEN}COMMAND: pacman-key -v $ISO_FILE_NAME.sig${WHITE}"
     pacman-key -v $ISO_FILE_NAME.sig
-    read -p "Please make sure the signature is good. Press enter to continue."
+    read -p "Please make sure the signature was good. Press enter to continue."
     echo ""
 
     echo "Step 1.4 - Making Bootable Flash Drive"
@@ -44,12 +44,12 @@ pre_installation () {
     sudo mkfs.vfat -I $FLASH_DRIVE_BLOCK
     echo -e "${GREEN}COMMAND: lsblk${WHITE}"
     lsblk
-    read -p "Please make sure the flash drive is properly formatted. Press enter to continue."
+    read -p "Please make sure the flash drive was properly formatted. Press enter to continue."
     echo -e "${GREEN}COMMAND: sudo dd if=$HOME/Downloads/$ISO_FILE_NAME of=$FLASH_DRIVE_BLOCK bs=4M status=progress && sync${WHITE}"
     sudo dd if=$HOME/Downloads/$ISO_FILE_NAME of=$FLASH_DRIVE_BLOCK bs=4M status=progress && sync
     echo -e "${GREEN}COMMAND: lsblk${WHITE}"
     lsblk
-    read -p "Please make sure the flash drive is properly installed. Press enter to continue."
+    read -p "Please make sure the flash drive was properly installed. Press enter to continue."
     echo ""
 
     echo "Step 1.5 - Shutting Down System"
@@ -67,7 +67,7 @@ main_installation () {
     echo "Step 2.1 - Verifying Boot Mode"
     echo -e "${GREEN}COMMAND: ls /sys/firmware/efi/efivars${WHITE}"
     ls /sys/firmware/efi/efivars
-    read -p "Please make sure the EFI files is exists. Press enter to continue."
+    read -p "Please make sure the EFI files was exists. Press enter to continue."
     echo ""
 
     echo "Step 2.2 - Updating System Clock"
@@ -75,7 +75,7 @@ main_installation () {
     timedatectl set-ntp true
     echo -e "${GREEN}COMMAND: timedatectl status${WHITE}"
     timedatectl status
-    read -p "Please make sure the system clock is correct. Press enter to continue."
+    read -p "Please make sure the system clock was correct. Press enter to continue."
     echo ""
 
     echo "Step 2.3 - Partitioning Drive"
@@ -119,7 +119,7 @@ main_installation () {
     mount ${DRIVE_BLOCK}1 /mnt/boot
     echo -e "${GREEN}COMMAND: lsblk${WHITE}"
     lsblk
-    read -p "Please make sure the partitions is properly mounted. Press enter to continue."
+    read -p "Please make sure the partitions was properly mounted. Press enter to continue."
     echo ""
 
     echo "Step 2.6 - Installing Essential Packages"
@@ -302,7 +302,7 @@ finish_installation () {
     umount -R /mnt
     echo -e "${GREEN}COMMAND: lsblk${WHITE}"
     lsblk
-    read -p "Please make sure the partitions is properly unmounted. Press enter to continue."
+    read -p "Please make sure the partitions was properly unmounted. Press enter to continue."
     echo ""
 
     echo "Step 4.3 - Rebooting System"
@@ -319,7 +319,7 @@ main () {
     echo "║ ░█▀▀█ ▒█▄░▒█ ░█▀▀█ ▒█▀▀█ ▒█▀▀█ ▒█░▒█ ▀█▀ ║"
     echo "║ ▒█▄▄█ ▒█▒█▒█ ▒█▄▄█ ▒█▄▄▀ ▒█░░░ ▒█▀▀█ ▒█░ ║"
     echo "║ ▒█░▒█ ▒█░░▀█ ▒█░▒█ ▒█░▒█ ▒█▄▄█ ▒█░▒█ ▄█▄ ║"
-    echo "║         An Arch Installer v1.0.0         ║"
+    echo "║         An Arch Installer v1.0.1         ║"
     echo "╚══════════════════════════════════════════╝"
 
     echo "1. Pre Installation"
