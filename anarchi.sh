@@ -265,13 +265,7 @@ post_installation () {
     read -p "Press enter to continue."
     echo ""
 
-    echo "Step 3.14 - Configuring Dual Boot Time"
-    echo -e "${GREEN}COMMAND: timedatectl set-local-rtc 1 --adjust-system-clock${WHITE}"
-    timedatectl set-local-rtc 1 --adjust-system-clock
-    read -p "Press enter to continue."
-    echo ""
-
-    echo "Step 3.15 - Exiting Arch"
+    echo "Step 3.14 - Exiting Arch"
     read -p "Exit Arch manually with COMMAND: exit. Press enter to continue."
 }
 
@@ -311,7 +305,7 @@ main () {
     echo "║ ░█▀▀█ ▒█▄░▒█ ░█▀▀█ ▒█▀▀█ ▒█▀▀█ ▒█░▒█ ▀█▀ ║"
     echo "║ ▒█▄▄█ ▒█▒█▒█ ▒█▄▄█ ▒█▄▄▀ ▒█░░░ ▒█▀▀█ ▒█░ ║"
     echo "║ ▒█░▒█ ▒█░░▀█ ▒█░▒█ ▒█░▒█ ▒█▄▄█ ▒█░▒█ ▄█▄ ║"
-    echo "║         An Arch Installer v1.0.4         ║"
+    echo "║         An Arch Installer v1.0.5         ║"
     echo "╚══════════════════════════════════════════╝"
 
     echo "1. Pre Installation"
