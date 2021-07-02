@@ -240,13 +240,19 @@ post_installation () {
     read -p "Press enter to continue."
     echo ""
 
-    echo "Step 3.11 - Configuring LightDM"
+    echo "Step 3.11 - Configuring Bluetooth"
+    echo -e "${GREEN}COMMAND: sed -i "\""s/#AutoEnable=false/AutoEnable=true/"\"" /etc/bluetooth/main.conf${WHITE}"
+    sed -i "s/#AutoEnable=false/AutoEnable=true/" /etc/bluetooth/main.conf
+    read -p "Press enter to continue."
+    echo ""
+
+    echo "Step 3.12 - Configuring LightDM"
     echo -e "${GREEN}COMMAND: sed -i "\""s/#greeter-session=example-gtk-gnome/greeter-session=lightdm-gtk-greeter/"\"" /etc/lightdm/lightdm.conf${WHITE}"
     sed -i "s/#greeter-session=example-gtk-gnome/greeter-session=lightdm-gtk-greeter/" /etc/lightdm/lightdm.conf
     read -p "Press enter to continue."
     echo ""
 
-    echo "Step 3.12 - Configuring Qtile"
+    echo "Step 3.13 - Configuring Qtile"
     for USER in ${USERS[@]}
     do
         echo -e "${GREEN}COMMAND: mkdir -p /home/$USER/.config/qtile${WHITE}"
@@ -259,13 +265,13 @@ post_installation () {
     read -p "Press enter to continue."
     echo ""
 
-    echo "Step 3.13 - Configuring Sudoers"
+    echo "Step 3.14 - Configuring Sudoers"
     echo -e "${GREEN}COMMAND: sed -i "\""s/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/"\"" /etc/sudoers${WHITE}"
     sed -i "s/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/" /etc/sudoers
     read -p "Press enter to continue."
     echo ""
 
-    echo "Step 3.14 - Exiting Arch"
+    echo "Step 3.15 - Exiting Arch"
     read -p "Exit Arch manually with COMMAND: exit. Press enter to continue."
 }
 
@@ -305,7 +311,7 @@ main () {
     echo "║ ░█▀▀█ ▒█▄░▒█ ░█▀▀█ ▒█▀▀█ ▒█▀▀█ ▒█░▒█ ▀█▀ ║"
     echo "║ ▒█▄▄█ ▒█▒█▒█ ▒█▄▄█ ▒█▄▄▀ ▒█░░░ ▒█▀▀█ ▒█░ ║"
     echo "║ ▒█░▒█ ▒█░░▀█ ▒█░▒█ ▒█░▒█ ▒█▄▄█ ▒█░▒█ ▄█▄ ║"
-    echo "║         An Arch Installer v1.0.6         ║"
+    echo "║         An Arch Installer v1.1.0         ║"
     echo "╚══════════════════════════════════════════╝"
 
     echo "1. Pre Installation"
