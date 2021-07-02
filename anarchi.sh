@@ -249,6 +249,8 @@ post_installation () {
     echo "Step 3.12 - Configuring LightDM"
     echo -e "${GREEN}COMMAND: sed -i "\""s/#greeter-session=example-gtk-gnome/greeter-session=lightdm-gtk-greeter/"\"" /etc/lightdm/lightdm.conf${WHITE}"
     sed -i "s/#greeter-session=example-gtk-gnome/greeter-session=lightdm-gtk-greeter/" /etc/lightdm/lightdm.conf
+    echo -e "${GREEN}COMMAND: echo -e "\""[greeter]\ntheme-name = Arc-Darker\nicon-theme-name = Papirus\nfont-name = Iosevka Medium 10\nbackground = /usr/share/pixmaps/Wallpaper.jpg\nclock-format = %A, %H:%M"\"" > /etc/lightdm/lightdm-gtk-greeter.conf${WHITE}"
+    echo -e "[greeter]\ntheme-name = Arc-Darker\nicon-theme-name = Papirus\nfont-name = Iosevka Medium 10\nbackground = /usr/share/pixmaps/Wallpaper.jpg\nclock-format = %A, %H:%M" > /etc/lightdm/lightdm-gtk-greeter.conf
     read -p "Press enter to continue."
     echo ""
 
@@ -311,7 +313,7 @@ main () {
     echo "║ ░█▀▀█ ▒█▄░▒█ ░█▀▀█ ▒█▀▀█ ▒█▀▀█ ▒█░▒█ ▀█▀ ║"
     echo "║ ▒█▄▄█ ▒█▒█▒█ ▒█▄▄█ ▒█▄▄▀ ▒█░░░ ▒█▀▀█ ▒█░ ║"
     echo "║ ▒█░▒█ ▒█░░▀█ ▒█░▒█ ▒█░▒█ ▒█▄▄█ ▒█░▒█ ▄█▄ ║"
-    echo "║         An Arch Installer v1.1.0         ║"
+    echo "║         An Arch Installer v1.1.1         ║"
     echo "╚══════════════════════════════════════════╝"
 
     echo "1. Pre Installation"
