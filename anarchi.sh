@@ -192,8 +192,8 @@ post_installation () {
     echo ""
 
     echo "Step 3.6 - Installing Essential Packages"
-    echo -e "${GREEN}COMMAND: pacman -S alacritty alsa-utils arc-gtk-theme base-devel blueberry chntpw dolphin dosfstools dunst efibootmgr firefox git grub htop lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings lxappearance nano neofetch networkmanager nitrogen ntfs-3g nvidia os-prober papirus-icon-theme pcmanfm picom python-pywal qbittorrent qtile rofi vlc xf86-video-intel xorg xorg-xinit youtube-dl${WHITE}"
-    pacman -S alacritty alsa-utils arc-gtk-theme base-devel blueberry chntpw dolphin dosfstools dunst efibootmgr firefox git grub htop lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings lxappearance nano neofetch networkmanager nitrogen ntfs-3g nvidia os-prober papirus-icon-theme pcmanfm picom python-pywal qbittorrent qtile rofi vlc xf86-video-intel xorg xorg-xinit youtube-dl
+    echo -e "${GREEN}COMMAND: pacman -S alacritty alsa-utils arc-gtk-theme base-devel blueberry chntpw dolphin dosfstools dunst efibootmgr firefox git grub htop lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings lxappearance nano neofetch networkmanager nitrogen ntfs-3g nvidia os-prober papirus-icon-theme pcmanfm picom python-pywal qbittorrent qtile rofi starship vlc xf86-video-intel xorg xorg-xinit youtube-dl zsh${WHITE}"
+    pacman -S alacritty alsa-utils arc-gtk-theme base-devel blueberry chntpw dolphin dosfstools dunst efibootmgr firefox git grub htop lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings lxappearance nano neofetch networkmanager nitrogen ntfs-3g nvidia os-prober papirus-icon-theme pcmanfm picom python-pywal qbittorrent qtile rofi starship vlc xf86-video-intel xorg xorg-xinit youtube-dl zsh
     read -p "Press enter to continue."
     echo ""
 
@@ -305,7 +305,7 @@ main () {
     echo "║ ░█▀▀█ ▒█▄░▒█ ░█▀▀█ ▒█▀▀█ ▒█▀▀█ ▒█░▒█ ▀█▀ ║"
     echo "║ ▒█▄▄█ ▒█▒█▒█ ▒█▄▄█ ▒█▄▄▀ ▒█░░░ ▒█▀▀█ ▒█░ ║"
     echo "║ ▒█░▒█ ▒█░░▀█ ▒█░▒█ ▒█░▒█ ▒█▄▄█ ▒█░▒█ ▄█▄ ║"
-    echo "║         An Arch Installer v1.0.5         ║"
+    echo "║         An Arch Installer v1.0.6         ║"
     echo "╚══════════════════════════════════════════╝"
 
     echo "1. Pre Installation"
