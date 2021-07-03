@@ -218,12 +218,10 @@ post_installation () {
     echo ""
 
     echo "Step 3.9 - Adding User"
-    USERS=()
     CHOICE="y"
     while [ $CHOICE == "y" ]
     do
         read -p "User name: " USER_NAME
-        USERS+=($USER_NAME)
         echo -e "${GREEN}COMMAND: useradd -m -g wheel $USER_NAME${WHITE}"
         useradd -m -g wheel $USER_NAME
         echo -e "${GREEN}COMMAND: passwd $USER_NAME${WHITE}"
@@ -254,26 +252,13 @@ post_installation () {
     read -p "Press enter to continue."
     echo ""
 
-    echo "Step 3.13 - Configuring Qtile"
-    for USER in ${USERS[@]}
-    do
-        echo -e "${GREEN}COMMAND: mkdir -p /home/$USER/.config/qtile${WHITE}"
-        mkdir -p /home/$USER/.config/qtile
-        echo -e "${GREEN}COMMAND: cp /usr/share/doc/qtile/default_config.py /home/$USER/.config/qtile/config.py${WHITE}"
-        cp /usr/share/doc/qtile/default_config.py /home/$USER/.config/qtile/config.py
-        echo -e "${GREEN}COMMAND: chown -R $USER:wheel /home/$USER/.config${WHITE}"
-        chown -R $USER:wheel /home/$USER/.config
-    done
-    read -p "Press enter to continue."
-    echo ""
-
-    echo "Step 3.14 - Configuring Sudoers"
+    echo "Step 3.13 - Configuring Sudoers"
     echo -e "${GREEN}COMMAND: sed -i "\""s/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/"\"" /etc/sudoers${WHITE}"
     sed -i "s/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/" /etc/sudoers
     read -p "Press enter to continue."
     echo ""
 
-    echo "Step 3.15 - Exiting Arch"
+    echo "Step 3.14 - Exiting Arch"
     read -p "Exit Arch manually with COMMAND: exit. Press enter to continue."
 }
 
@@ -313,7 +298,7 @@ main () {
     echo "║ ░█▀▀█ ▒█▄░▒█ ░█▀▀█ ▒█▀▀█ ▒█▀▀█ ▒█░▒█ ▀█▀ ║"
     echo "║ ▒█▄▄█ ▒█▒█▒█ ▒█▄▄█ ▒█▄▄▀ ▒█░░░ ▒█▀▀█ ▒█░ ║"
     echo "║ ▒█░▒█ ▒█░░▀█ ▒█░▒█ ▒█░▒█ ▒█▄▄█ ▒█░▒█ ▄█▄ ║"
-    echo "║         An Arch Installer v1.1.1         ║"
+    echo "║         An Arch Installer v1.1.2         ║"
     echo "╚══════════════════════════════════════════╝"
 
     echo "1. Pre Installation"
