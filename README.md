@@ -26,6 +26,18 @@ MAINTAINING
    ```
 3. Run the script.
    ```bash
-   bash anarchi.sh
+   ./anarchi.sh
    ```
 4. Do-what-you-want-with-it!
+
+## How to Use (During Live Installation)
+
+1. Download the latest release script.
+   ```bash
+   curl -OL https://github.com/rgxcp/anarchi/releases/latest/download/anarchi.sh
+   ```
+2. Run the script.
+   ```bash
+   ./anarchi.sh
+   ```
+3. Follow-the-installation-steps!
