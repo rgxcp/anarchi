@@ -192,8 +192,55 @@ post_installation () {
     echo ""
 
     echo "Step 3.6 - Installing Essential Packages"
-    echo -e "${GREEN}COMMAND: pacman -S alacritty alsa-utils arc-gtk-theme base-devel blueberry chntpw dolphin dosfstools dunst efibootmgr firefox git grub htop lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings lxappearance nano neofetch networkmanager nitrogen ntfs-3g nvidia os-prober papirus-icon-theme pcmanfm picom python-pywal qbittorrent qtile rofi starship vlc xf86-video-intel xorg xorg-xinit youtube-dl zsh${WHITE}"
-    pacman -S alacritty alsa-utils arc-gtk-theme base-devel blueberry chntpw dolphin dosfstools dunst efibootmgr firefox git grub htop lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings lxappearance nano neofetch networkmanager nitrogen ntfs-3g nvidia os-prober papirus-icon-theme pcmanfm picom python-pywal qbittorrent qtile rofi starship vlc xf86-video-intel xorg xorg-xinit youtube-dl zsh
+    PACKAGES=(
+        alacritty
+        alsa-utils
+        arc-gtk-theme
+        base-devel
+        blueberry
+        chntpw
+        dolphin
+        dosfstools
+        dunst
+        efibootmgr
+        firefox
+        git
+        gnome-keyring
+        grub
+        htop
+        lightdm
+        lightdm-gtk-greeter
+        lightdm-gtk-greeter-settings
+        lxappearance
+        nano
+        neofetch
+        networkmanager
+        nitrogen
+        ntfs-3g
+        nvidia
+        os-prober
+        papirus-icon-theme
+        pcmanfm
+        picom
+        playerctl
+        python-pip
+        python-pywal
+        qbittorrent
+        rofi
+        scrot
+        starship
+        ttf-fira-code
+        vlc
+        xf86-video-intel
+        xorg
+        xorg-xinit
+        youtube-dl
+        zsh
+        zsh-autosuggestions
+        zsh-syntax-highlighting
+    )
+    echo -e "${GREEN}COMMAND: pacman -S ${PACKAGES[@]}${WHITE}"
+    pacman -S ${PACKAGES[@]}
     read -p "Press enter to continue."
     echo ""
 
@@ -298,7 +345,7 @@ main () {
     echo "║ ░█▀▀█ ▒█▄░▒█ ░█▀▀█ ▒█▀▀█ ▒█▀▀█ ▒█░▒█ ▀█▀ ║"
     echo "║ ▒█▄▄█ ▒█▒█▒█ ▒█▄▄█ ▒█▄▄▀ ▒█░░░ ▒█▀▀█ ▒█░ ║"
     echo "║ ▒█░▒█ ▒█░░▀█ ▒█░▒█ ▒█░▒█ ▒█▄▄█ ▒█░▒█ ▄█▄ ║"
-    echo "║         An Arch Installer v1.1.2         ║"
+    echo "║         An Arch Installer v1.1.3         ║"
     echo "╚══════════════════════════════════════════╝"
 
     echo "1. Pre Installation"
