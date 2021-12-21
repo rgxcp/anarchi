@@ -1,4 +1,4 @@
-# Bash - Anarchi
+# 🧑‍🚒 Bash - Anarchi
 
 **EN**: An Arch Installer.
 
