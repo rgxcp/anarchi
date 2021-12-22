@@ -1,8 +1,6 @@
-# 🧑‍🚒 Bash - Anarchi
+# 🧑‍🚒 Anarchi
 
-**EN**: An Arch Installer.
-
-**ID**: Sebuah Installer Arch.
+An Arch Installer.
 
 Note: This installer was heavily tailored for me. Your needs may differs, so, suit your suit before using.
 
