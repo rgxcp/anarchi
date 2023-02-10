@@ -47,4 +47,4 @@ read -p "Press enter to continue."
 echo -e "${GREEN}[i] Making bootable disk.${WHITE}"
 sudo dd bs=4M if=$PWD/$ISO_FILE_NAME of=$FLASH_DRIVE_BLOCK conv=fsync oflag=direct status=progress && sync
 lsblk
-read -p "Press enter to continue."
+echo -e "${GREEN}[i] Done. Please make sure everything is correct.${WHITE}"
