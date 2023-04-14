@@ -33,12 +33,12 @@ pacman-key -v $ISO_SIGNATURE_FILE_NAME
 read -p "Press enter to continue."
 
 echo -e "${GREEN}[i] Formatting flash drive.${WHITE}"
-read -p "Please insert flash drive first then press enter to continue."
+read -p "Please insert a flash drive first then press enter to continue."
 lsblk
-read -p "Flash drive block: " FLASH_DRIVE_BLOCK
+read -p "Flash drive block (/dev/sdX): " FLASH_DRIVE_BLOCK
 while [[ -z $FLASH_DRIVE_BLOCK ]]; do
   echo -e "${RED}[x] Flash drive block must be provided.${WHITE}"
-  read -p "Flash drive block: " FLASH_DRIVE_BLOCK
+  read -p "Flash drive block (/dev/sdX): " FLASH_DRIVE_BLOCK
 done
 sudo mkfs.vfat -I $FLASH_DRIVE_BLOCK
 lsblk
